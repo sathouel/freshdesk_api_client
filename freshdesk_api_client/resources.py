@@ -26,6 +26,7 @@ class GettableResource(GettableResourceInterface):
 
 class ListableResource(ListableResourceInterface):
     def fetch_list(self, args=None):
+        res = self._session.get(self._endpoint, )
         pass
 
 class UpdatableResource(UpdatableResourceInterface):

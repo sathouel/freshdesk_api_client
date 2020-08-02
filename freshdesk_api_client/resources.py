@@ -1,3 +1,6 @@
+import json
+
+from freshdesk_api_client.utils import urljoin
 from freshdesk_api_client.interfaces import *
 
 
@@ -12,23 +15,32 @@ class ResourcePool:
 
 class CreatableResource(CreatableResourceInterface):
     def create_item(self, item):
-        pass
+        res = self._session.post(self._endpoint, data=json.dumps(item))
+        return res
 
 class GettableResource(GettableResourceInterface):
-    def fetch_item(self, item):
-        pass
+    def fetch_item(self, code):
+        url = urljoin(self._endpoint, code)
+        res = self._session.get(url)
+        return res
 
 class ListableResource(ListableResourceInterface):
     def fetch_list(self, args=None):
         pass
 
 class UpdatableResource(UpdatableResourceInterface):
-    def update_create_item(self, item):
-        pass
+    def update_create_item(self, item, code=None):
+        if code is None:
+            code = item.get('id')
+        url = urljoin(self._endpoint, code)
+        res = self._session.put(url, data=json.dumps(item))
+        return res
 
 class DeletableResource(DeletableResourceInterface):
-    def delete_item(self, item):
-        pass
+    def delete_item(self, code):
+        url = urljoin(self._endpoint, code)
+        res = self._session.delete(url)
+        return res
 
 class TicketsPool(
                 ResourcePool,

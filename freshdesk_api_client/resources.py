@@ -51,12 +51,65 @@ class TicketsPool(
                 UpdatableResource,
                 DeletableResource):
     # https://developers.freshdesk.com/api/#tickets
+    
+    def conversations(self, code):
+        return TicketConversationsPool(
+            urljoin(self._endpoint, code, 'conversations'), self._session
+        )
+
+    def reply(self, code):
+        return TicketReplyPool(
+            urljoin(self._endpoint, code, 'reply'), self._session
+        )
+
+    def notes(self, code):
+        return TicketNotesPool(
+            urljoin(self._endpoint, code, 'notes'), self._session
+        )
+
+class TicketConversationsPool(
+                ResourcePool,
+                ListableResource,):
+    # https://developers.freshdesk.com/api/#list_all_ticket_notes
+    pass
+
+class TicketReplyPool(
+                ResourcePool,
+                CreatableResource,):
+    # https://developers.freshdesk.com/api/#list_all_ticket_notes
+    pass
+
+class TicketNotesPool(
+                ResourcePool,
+                CreatableResource,):
+    pass
+
+class TicketFieldsPool(
+                ResourcePool,
+                CreatableResource,
+                GettableResource,
+                ListableResource,
+                UpdatableResource,
+                DeletableResource):
+    # https://developers.freshdesk.com/api/#ticket-fields
+
+    def sections(self, code):
+        return TicketFieldsSectionsPool(
+            urljoin(self._endpoint, code, 'sections'), self._session
+        )
+
+class TicketFieldsSectionsPool(
+                ResourcePool,
+                CreatableResource,
+                GettableResource,
+                ListableResource,
+                UpdatableResource,
+                DeletableResource):
+    # https://developers.freshdesk.com/api/#ticket-fields
     pass
 
 class ConversationsPool(
                     ResourcePool,
-                    CreatableResource,
-                    ListableResource,
                     UpdatableResource,
                     DeletableResource):
     # https://developers.freshdesk.com/api/#conversations

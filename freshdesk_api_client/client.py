@@ -48,14 +48,38 @@ class FreshdeskClient:
         self._session.headers = headers
 
     @property
-    def endpoints(self):
-        base_url = utils.urljoin(FreshdeskClient.BASE_URL.format(self._company), self._api_version)
-        endpoints = {
-            'base': base_url
-        }
-        return endpoints
-
-    @property
     def resources(self):
         """Return all resources as a list of Resources"""
         return self._resources
+
+    @property
+    def tickets(self):
+        return self.resources.get('tickets')
+
+    @property
+    def conversations(self):
+        return self.resources.get('conversations')
+
+    @property
+    def contacts(self):
+        return self.resources.get('contacts')
+
+    @property
+    def agents(self):
+        return self.resources.get('agents')
+
+    @property
+    def skills(self):
+        return self.resources.get('skills')
+
+    @property
+    def roles(self):
+        return self.resources.get('roles')
+
+    @property
+    def groups(self):
+        return self.resources.get('groups')
+
+    @property
+    def companies(self):
+        return self.resources.get('companies')

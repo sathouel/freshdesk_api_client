@@ -21,7 +21,7 @@ class FreshdeskClient:
             'tickets': resources.TicketsPool(
                 utils.urljoin(self._base_url, 'tickets'), self._session),
             'ticket_fields ': resources.TicketFieldsPool(
-                utils.urljoin(self._base_url, 'admin/ticket_fields'), self._session),
+                utils.urljoin(self._base_url, 'admin', 'ticket_fields'), self._session),
             'conversations': resources.ConversationsPool(
                 utils.urljoin(self._base_url, 'conversations'), self._session),
             'contacts': resources.ContactsPool(
@@ -85,3 +85,7 @@ class FreshdeskClient:
     @property
     def companies(self):
         return self.resources.get('companies')
+
+    @property
+    def ticket_fields(self):
+        return self.resources.get('ticket_fields')

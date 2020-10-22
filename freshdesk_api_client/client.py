@@ -36,6 +36,8 @@ class FreshdeskClient:
                 utils.urljoin(self._base_url, 'groups'), self._session),
             'companies': resources.CompaniesPool(
                 utils.urljoin(self._base_url, 'companies'), self._session),
+            'search': resources.SearchPool(
+                utils.urljoin(self._base_url, 'search'), self._session),
         }
 
         self._authenticate()

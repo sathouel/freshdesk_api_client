@@ -8,6 +8,11 @@ class GettableResourceInterface(abc.ABC):
     def fetch_item(self, code_or_item):
         pass
 
+class SearchableResourceInterface(abc.ABC):
+    @abc.abstractmethod
+    def search(self, query):
+        pass    
+
 class ListableResourceInterface(abc.ABC):
     @abc.abstractmethod
     def fetch_list(self, args=None):

@@ -29,6 +29,14 @@ class ListableResource(ListableResourceInterface):
         res = self._session.get(self._endpoint, params=args)
         return res
 
+class SearchableResource(SearchableResourceInterface):
+    def search(self, query):
+        params = {
+            'query': query
+        }
+        res = self._session.get(self._endpoint, params=params)
+        return res
+
 class UpdatableResource(UpdatableResourceInterface):
     def update_create_item(self, item, code=None):
         if code is None:
@@ -170,4 +178,18 @@ class CompaniesPool(
                 UpdatableResource,
                 DeletableResource):
     # https://developers.freshdesk.com/api/#companies
+    pass
+
+
+class SearchPool(ResourcePool):
+    @property
+    def companies(self):
+        return SearchCompaniesPool(
+            urljoin(self._endpoint, 'companies'), self._session
+        )
+
+class SearchCompaniesPool(ResourcePool, SearchableResource):
+    pass
+
+class SearchTicketsPool(ResourcePool, SearchableResource):
     pass
